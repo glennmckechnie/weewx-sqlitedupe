@@ -7,17 +7,14 @@
 # glenn.mckechnie@gmail.com
 
 
-import os
-import os.path
-import time
-#import sqlite3
-#from sqlite3 import Error
+#import os
+#import os.path
+#import time
 import syslog
 
 import weewx
 import weewx.engine
 import weeutil.weeutil
-#import weedb.sqlite
 import weedb
 
 VERSION = "0.1"
@@ -80,8 +77,8 @@ class SQLiteDupe(weewx.engine.StdService):
         self.binding = d.get('binding', 'archive')
         if self.binding == 'archive':
             self.bind(weewx.NEW_ARCHIVE_RECORD, self.handle_new_archive)
-        else:
-            self.bind(weewx.NEW_LOOP_PACKET, self.handle_new_loop)
+        #else:
+        #    self.bind(weewx.NEW_LOOP_PACKET, self.handle_new_loop)
 
         # get the database parameters we need to function
         binding = d.get('data_binding', 'sqlitedupe_binding')
@@ -96,18 +93,10 @@ class SQLiteDupe(weewx.engine.StdService):
             raise Exception('sqlitedupe schema mismatch: %s != %s' % (dbcol, dupecol))
 
     def handle_new_archive(self, event):
-        self.new_archive_record(event.record)
-
-    def handle_new_loop(self, event):
-        self.write_data(event.packet)
-
-    def new_archive_record(self, record):
         """save data to database"""
-        #loginf('new_archive_record %s' %(record))
-        self.dbm.addRecord(record)
+        self.dbm.addRecord(event.record)
 
-     # www.sqlitetutorial.net/sqlite-python/insert/
-     # www.sqlitetutorial.net/sqlite-python/creating-database/
 
-     # loginf('new_archive_record %s' %(record))
+     # loginf('new_archive_record %s' %(event.record))
+     # loginf('new_archive_record %s' %(event))
      # data record {'heatindex': 17.296875000000004, 'outHumidity': 72.454275, 'maxSolarRad': 782.7650660547766, 'hail': 0.0, 'inTempBatteryStatus': 4.93, 'rainBatteryStatus': 4.95, 'hailRate': 0.0, 'altimeter': 1016.2321988390987, 'outTempBatteryStatus': 4.96, 'radiation': 1400.0322500000002, 'inTemp': 21.65625, 'inDewpoint': 48.14709605637118, 'barometer': 1015.294, 'windchill': 17.296875000000004, 'dewpoint': 12.293227803655595, 'windrun': 20.47582442781085, 'rain': 0.0, 'humidex': 19.710957581208838, 'pressure': 963.4797924584669, 'ET': 0.010438185627416401, 'rainRate': 0.0, 'usUnits': 17, 'rainCount4': 987.0, 'rainCount3': 835.0, 'rainCount1': 20227967.0, 'appTemp': 15.479917358792356, 'windBatteryStatus': 4.95, 'interval': 1, 'dateTime': 1507163160.0, 'windDir': 241.28352189240834, 'outTemp': 17.296875000000004, 'windSpeed': 3.609926636088604, 'inHumidity': 44.3086, 'windGust': 3.823387430030153, 'windGustDir': 247.47474747474746, 'cloudbase': 1073.9298293015042}

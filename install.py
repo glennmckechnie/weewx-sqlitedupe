@@ -35,16 +35,9 @@ class SQLiteDupeInstaller(ExtensionInstaller):
                     'sqlitedupe_sqlite': {
                         'database_name': 'sqlitedupe.sdb',
                         'driver': 'weedb.sqlite'}},
-                'StdReport': {
-                    'SQLiteDupe': {
-                        'skin': 'sqlitedupe',
-                        'HTML_ROOT': 'sqlitedupe',
-                        'filename': '/var/tmp/dupedata.sql'}}},
+                   },
             files=[('bin/user',
                     ['bin/user/sqlitedupe.py'
-                    ]),
-                   ('skins/sqlitedupe',
-                    ['skins/sqlitedupe/skin.conf'
                     ])
                   ]
             )
