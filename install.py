@@ -21,7 +21,7 @@ class SQLiteDupeInstaller(ExtensionInstaller):
                         'a seperate database - currently in SQLite format.',
             author="Glenn McKechnie",
             author_email="glennmckechnie@gmail.com",
-            process_services='user.sqlitedupe.SQLiteDupe',
+            archive_services='user.sqlitedupe.SQLiteDupe',
             config={
                 'SQLiteDupe': {
                     'data_binding': 'sqlitedupe_binding'},
